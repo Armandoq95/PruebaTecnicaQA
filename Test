@@ -1,0 +1,16 @@
+URL= {API_URL}
+
+tarea_valida = {"Titulo", "Descripcion"}
+response = requests.post(URL, json=tarea)
+self.assertEqual(response.status_code, 201)
+tarea_id = response.json()['id']
+
+tarea_invalida = {"Descripcion"}
+response = requests.post(URL, json=tarea_invalida)
+self.assertEqual(response.status_code, 400)
+
+response = requests.get(URL)
+self.assertEqual(response.status_code, 200)
+
+response = requests.delete(f"{URL}/{tarea_id}")
+ self.assertEqual(response.status_code, 200)
